@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function Home() {
+export default function HomeComp() {
   const [showModal, setShowModal] = useState(false);
 
   // Ensure that the router is only used on the client-side
@@ -13,54 +13,7 @@ export default function Home() {
   // const parameter1 = query.postName;
   // const parameter2 = query.postId;
 
-  // console.log("testing the params", parameter1, parameter2);
-
-  const handleModalToggle = () => {
-    setShowModal(!showModal);
-  };
-
-  const clientId = "c26a9630-02d0-4fe8-9874-eb2661899563";
-  const client_secret = "a789d384-d463-42eb-89f4-63e5d5d6c0eb";
-  const redirectUri = "https://sizzl-verify.netlify.app/";
-  const authorizationEndpoint = "https://controller.myoneid.co.uk/v2/authorize";
-  const scope = "age_over_18";
-  const state = "Sizzl";
-
-  console.log(
-    "===================================================================="
-  );
-  console.log("encodeURIComponent", encodeURIComponent(redirectUri));
-  console.log("encodeURIComponent", encodeURIComponent(scope));
-  console.log("========================================================");
-
-  const authorizationUrl = `${authorizationEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-    redirectUri
-  )}&response_type=code&scope=${encodeURIComponent(scope)}&state=${state}`;
-
-  const callUpdateUser = async () => {
-    var data = JSON.stringify({
-      // authorizationCode: vals?.authorizationCode,
-      // isOneIdComplete: vals?.isOneIdComplete,
-    });
-    var config = {
-      method: "post",
-      url: `${URL}/user/update-profile-data`,
-      headers: {
-        // Authorization: `Bearer ${state().accessToken}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        // if (response.data?.success) {
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  // console.log("testng the pa", parameter1, parameter2);
 
   return (
     <div
