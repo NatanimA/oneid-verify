@@ -1,37 +1,33 @@
 "use client";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import MyWebview from "./components/MyWebview";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
 
   // Ensure that the router is only used on the client-side
-  const router = useRouter();
-  // const { query } = router;
+  const searchParams = useSearchParams();
 
-  // const parameter1 = query.postName;
-  // const parameter2 = query.postId;
+  const search = searchParams.get("postName");
 
-  // console.log("testing the params", parameter1, parameter2);
+  console.log("testing the params", search);
 
   const handleModalToggle = () => {
     setShowModal(!showModal);
   };
 
-  const clientId = "c26a9630-02d0-4fe8-9874-eb2661899563";
-  const client_secret = "a789d384-d463-42eb-89f4-63e5d5d6c0eb";
+  // const clientId = "c26a9630-02d0-4fe8-9874-eb2661899563";
+  const clientId = "e4efe807-8a76-4661-bd46-5b37c543fbbe";
+  // const client_secret = "a789d384-d463-42eb-89f4-63e5d5d6c0eb";
+  const client_secret = "efac02ef-0c1c-4332-809c-09761300172a";
   const redirectUri = "https://sizzl-verify.netlify.app/";
-  const authorizationEndpoint = "https://controller.myoneid.co.uk/v2/authorize";
-  const scope = "age_over_18";
+  // const authorizationEndpoint = "https://controller.myoneid.co.uk/v2/authorize";
+  const authorizationEndpoint =
+    "https://controller.sandbox.myoneid.co.uk/v2/authorize";
+  const scope = "openid product:age_verification";
   const state = "Sizzl";
-
-  console.log(
-    "===================================================================="
-  );
-  console.log("encodeURIComponent", encodeURIComponent(redirectUri));
-  console.log("encodeURIComponent", encodeURIComponent(scope));
-  console.log("========================================================");
 
   const authorizationUrl = `${authorizationEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
     redirectUri
@@ -76,14 +72,9 @@ export default function Home() {
             height: "100vh",
           }}
         >
-          <iframe
-            src={authorizationUrl}
-            style={{
-              width: "100%",
-              height: "100vh",
-            }}
-            width={"100%"}
-            height={"100vh"}
+          <MyWebview
+            authorizationUrl={authorizationUrl}
+            redirectUri="https://sizzl-verify.netlify.app/"
           />
         </div>
       ) : (
