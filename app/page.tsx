@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(true);
@@ -23,7 +23,7 @@ export default function Home() {
     const error = searchParams.get("error");
     console.log({ authCode, authToken, error });
     if (error) {
-      alert("Error occured while verifying user");
+      alert("Error occurred while verifying user");
     } else {
       console.log("Updating user");
       var data = JSON.stringify({
@@ -65,7 +65,7 @@ export default function Home() {
       }}
     >
       <main className="flex min-h-screen flex-col items-center justify-items-center justify-between p-24">
-        <>
+        <Suspense fallback={<p>Loading...</p>}>
           {loading ? (
             <>
               <p>Loading...</p>
@@ -137,7 +137,7 @@ export default function Home() {
               )}
             </>
           )}
-        </>
+        </Suspense>
       </main>
     </div>
   );
