@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import MyWebview from "./components/MyWebview";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(true);
